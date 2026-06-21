@@ -113,13 +113,19 @@
 
 ### 6. Commit & Push
 
-1. Always use the designated author when committing:
+1. Always use the designated author when committing. Use `--author` for the author and env vars for the committer (no local git config changed):
 
    ```bash
-   git commit --author="Farnabaz01 <01@farnabaz.dev>"
+   GIT_COMMITTER_NAME="Farnabaz01" \
+   GIT_COMMITTER_EMAIL="01@farnabaz.dev" \
+   git commit --author="Farnabaz01 <01@farnabaz.dev>" -m "..."
    ```
 
-   Verify the author is correct with `git log --format="%an <%ae>" -1`.
+   Verify author and committer match:
+
+   ```bash
+   git log --format="%an <%ae> (author)%n%cn <%ce> (committer)" -1
+   ```
 
 2. Create separate commits for:
 
@@ -145,10 +151,10 @@
    gh repo list
    ```
 
-2. Verify the branch has the correct author on every commit:
+2. Verify author and committer match on every commit:
 
    ```bash
-   git log --format="%an <%ae>" --reverse
+   git log --format="%an <%ae> (author) %n%cn <%ce> (committer)" --reverse
    ```
 
 3. Create the PR against the upstream repository:
