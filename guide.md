@@ -107,7 +107,9 @@
    ```bash
    pnpm vitest run
    ```
-8. Do not submit changes with failing tests unless failures are pre-existing and documented.
+
+8. If the project provides lint or type-check commands (e.g. `pnpm lint`, `pnpm typecheck`), run them and fix any issues before committing.
+9. Do not submit changes with failing tests, lints, or type errors unless they are pre-existing and documented.
 
 ---
 
