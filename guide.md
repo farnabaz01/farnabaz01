@@ -113,12 +113,14 @@
 
 ### 6. Commit & Push
 
-1. Always use the designated author when committing. Use `--author` for the author and env vars for the committer (no local git config changed):
+1. Always use the designated author when committing. Use env vars for both author and committer (no local git config changed):
 
    ```bash
+   GIT_AUTHOR_NAME="Farnabaz01" \
+   GIT_AUTHOR_EMAIL="01@farnabaz.dev" \
    GIT_COMMITTER_NAME="Farnabaz01" \
    GIT_COMMITTER_EMAIL="01@farnabaz.dev" \
-   git commit --author="Farnabaz01 <01@farnabaz.dev>" -m "..."
+   git commit -m "..."
    ```
 
    Verify author and committer match:
