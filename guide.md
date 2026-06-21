@@ -45,13 +45,15 @@
    git reset --hard upstream/<default-branch>
    ```
 
-7. Always create a **fresh dedicated fix branch** from the latest upstream default branch (usually main). Do not reuse existing local or remote feature branches.
+7. Always create a **fresh dedicated fix branch** from the latest upstream default branch (usually main). Do **not** reuse existing local or remote feature branches — never commit onto an already-existing branch.
 
    ```bash
+   git checkout <default-branch>
+   git pull upstream <default-branch>
    git checkout -b <fix-branch-name>
    ```
 
-   Verify the new branch is based on the current tip of `upstream/<default-branch>` before making any changes.
+   Verify the new branch contains only your commits (`git log --oneline <default-branch>..HEAD`) and is based on the current tip of `upstream/<default-branch>` before making any changes.
 
 ---
 
@@ -111,19 +113,27 @@
 
 ### 6. Commit & Push
 
-1. Create separate commits for:
+1. Always use the designated author when committing:
+
+   ```bash
+   git commit --author="Farnabaz01 <01@farnabaz.dev>"
+   ```
+
+   Verify the author is correct with `git log --format="%an <%ae>" -1`.
+
+2. Create separate commits for:
 
    * The code fix
    * Regression tests
-2. Use clear commit messages describing intent.
-3. Push using an authenticated HTTPS remote:
+3. Use clear commit messages describing intent.
+4. Push using an authenticated HTTPS remote:
 
    ```bash
    git remote set-url origin https://x-access-token:$(gh auth token)@github.com/<fork>/<repo>.git
    git push origin <branch>
    ```
-4. Restore the original remote URL after the push succeeds.
-5. Verify the branch exists on the fork before creating a PR.
+5. Restore the original remote URL after the push succeeds.
+6. Verify the branch exists on the fork before creating a PR.
 
 ---
 
@@ -135,7 +145,13 @@
    gh repo list
    ```
 
-2. Create the PR against the upstream repository:
+2. Verify the branch has the correct author on every commit:
+
+   ```bash
+   git log --format="%an <%ae>" --reverse
+   ```
+
+3. Create the PR against the upstream repository:
 
    ```bash
    gh pr create \
@@ -144,19 +160,19 @@
      --base main
    ```
 
-3. Include in the PR description:
+4. Include in the PR description:
 
    * Root cause summary
    * Description of the fix
    * Test coverage added
    * Any compatibility or migration considerations
 
-4. If formal review requests are unavailable due to permissions, leave a PR comment instead.
+5. If formal review requests are unavailable due to permissions, leave a PR comment instead.
 
-5. Always leave the following comment on the PR:
+6. Always leave the following comment on the PR:
 
    ```
    This PR is ready for review by @farnabaz.
    ```
 
-6. Record the PR URL in the final task output.
+7. Record the PR URL in the final task output.
