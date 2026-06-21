@@ -45,7 +45,7 @@
    git reset --hard upstream/<default-branch>
    ```
 
-7. Always create a **fresh dedicated fix branch** from the latest upstream default branch. Do not reuse existing local or remote feature branches.
+7. Always create a **fresh dedicated fix branch** from the latest upstream default branch (usually main). Do not reuse existing local or remote feature branches.
 
    ```bash
    git checkout -b <fix-branch-name>
