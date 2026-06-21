@@ -136,14 +136,15 @@
    * The code fix
    * Regression tests
 3. Use clear commit messages describing intent.
-4. Push using an authenticated HTTPS remote:
+4. **Never force push.** If you need to update a branch, add a new commit on top.
+5. Push using an authenticated HTTPS remote:
 
    ```bash
    git remote set-url origin https://x-access-token:$(gh auth token)@github.com/<fork>/<repo>.git
    git push origin <branch>
    ```
-5. Restore the original remote URL after the push succeeds.
-6. Verify the branch exists on the fork before creating a PR.
+6. Restore the original remote URL after the push succeeds.
+7. Verify the branch exists on the fork before creating a PR.
 
 ---
 
