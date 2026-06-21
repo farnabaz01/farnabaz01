@@ -6,6 +6,7 @@
 
    * Verify with `git rev-parse --is-inside-work-tree`.
    * Verify the repository matches the target project.
+
 2. If the working directory is not a valid clone of the target repository:
 
    * Fork the repository:
@@ -13,7 +14,9 @@
      ```bash
      gh repo fork <owner>/<repo> --clone=false
      ```
+
    * Clone the fork into the working directory.
+
 3. If cloning or fetching over SSH fails:
 
    ```bash
@@ -21,17 +24,34 @@
    ```
 
    Retry the operation.
+
 4. Verify git remotes:
 
    * `origin` → fork repository
    * `upstream` → original repository
+
 5. Fetch all refs:
 
    ```bash
    git fetch origin --prune
    git fetch upstream --prune
    ```
-6. Create a dedicated fix branch from the latest upstream default branch.
+
+6. Identify the upstream default branch and ensure it is fully up to date:
+
+   ```bash
+   git checkout <default-branch>
+   git fetch upstream
+   git reset --hard upstream/<default-branch>
+   ```
+
+7. Always create a **fresh dedicated fix branch** from the latest upstream default branch. Do not reuse existing local or remote feature branches.
+
+   ```bash
+   git checkout -b <fix-branch-name>
+   ```
+
+   Verify the new branch is based on the current tip of `upstream/<default-branch>` before making any changes.
 
 ---
 
